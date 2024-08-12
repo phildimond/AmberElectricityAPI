@@ -1,0 +1,11 @@
+/home/phillip/source/c#/AmberElectricityAPI/bin/Debug/net8.0/AmberElectricityAPI.deps.json
+/home/phillip/source/c#/AmberElectricityAPI/bin/Debug/net8.0/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/bin/Debug/net8.0/AmberElectricityAPI.pdb
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.GeneratedMSBuildEditorConfig.editorconfig
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.AssemblyInfoInputs.cache
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.AssemblyInfo.cs
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.csproj.CoreCompileInputs.cache
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/refint/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.pdb
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/ref/AmberElectricityAPI.dll

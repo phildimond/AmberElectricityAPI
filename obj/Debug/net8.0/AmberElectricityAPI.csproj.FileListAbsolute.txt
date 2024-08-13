@@ -9,3 +9,4 @@
 /home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/refint/AmberElectricityAPI.dll
 /home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.pdb
 /home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/ref/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/obj/Debug/net8.0/AmberElectricityAPI.sourcelink.json

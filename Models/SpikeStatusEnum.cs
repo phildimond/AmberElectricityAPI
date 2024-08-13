@@ -5,6 +5,7 @@ namespace AmberElectricityAPI.Models;
 [JsonConverter(typeof(JsonStringEnumConverter<SpikeStatusEnum>))]
 public enum SpikeStatusEnum
 {
+    unknown,
     none, 
     potential, 
     spike

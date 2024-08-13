@@ -47,11 +47,11 @@ public class UsageRecord
         public DateTime StartTime { get; set; }
 
         [JsonPropertyName("spikeStatus")]
-        public SpikeStatusEnum SpikeStatus { get; set; }
+        public SpikeStatusEnum SpikeStatus { get; set; } = SpikeStatusEnum.unknown;
 
         [JsonPropertyName("tariffInformation")]
         public TariffInfo TariffInformation { get; set; } = new TariffInfo();
-        
+
         [JsonPropertyName("descriptor")]
-        public PriceDescriptorEnum Descriptor { get; set; }
+        public PriceDescriptorEnum Descriptor { get; set; } = PriceDescriptorEnum.unknown;
 }

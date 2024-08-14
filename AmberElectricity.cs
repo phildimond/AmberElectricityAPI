@@ -53,7 +53,7 @@ public class AmberElectricity
         return recs;
     }
 
-    // Usage
+    // Site Prices
     public IntervalRecord[]? GetSitePrices(DateTime startDate, DateTime endDate, int resolution = 30)
     {
         (HttpStatusCode statusCode, string responseBody) responseData;
@@ -72,4 +72,29 @@ public class AmberElectricity
         return recs;
     }
 
+    // Current Prices
+    public IntervalRecord[]? GetCurrentPrices(uint nextIntervals, uint previousIntervals, int resolution = 30)
+    {
+        (HttpStatusCode statusCode, string responseBody) responseData;
+
+        string body = string.Empty;
+        string apiCall = "/sites/" + SiteId + "/prices/current";
+        Dictionary<string, string?>? paramSet = null;
+        if (nextIntervals != 0 || previousIntervals != 0) apiCall += "?'";
+        if (nextIntervals != 0) apiCall += "next=" + nextIntervals;
+        if (previousIntervals != 0)
+        {
+            if (nextIntervals != 0) apiCall += "&";
+            apiCall += "next=" + previousIntervals;
+        }
+        
+        responseData = Network.ProcessRequest(url, apiCall, true, _token);
+        
+        if (responseData.statusCode != HttpStatusCode.OK) return null;
+        
+        IntervalRecord[]? recs = JsonSerializer.Deserialize<IntervalRecord[]>(responseData.responseBody);
+
+        return recs;
+    }
+    
 }

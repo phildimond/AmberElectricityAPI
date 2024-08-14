@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace AmberElectricityAPI;
 
@@ -11,23 +12,25 @@ public class Network
     public static (HttpStatusCode statusCode, string responseBody) 
         ProcessRequest(string baseUrl, string api, bool tokenNeeded, string token = "")
     {
+        
         var clientHandler = new HttpClientHandler
         {
             UseCookies = false,
         };
 
         var client = new HttpClient(clientHandler);
-
+        
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
             RequestUri = new Uri(baseUrl + api)
         };
+        
         if (tokenNeeded)
         {
             request.Headers.Add("Authorization", "Bearer " + token);
         }
-
+        
         using (var response = client.Send(request))
         {
             var result = response.Content.ReadAsStream();

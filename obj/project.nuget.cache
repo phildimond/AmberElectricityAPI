@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "IwvackzpOzG69qW4Ce5dKnR1HJz2w9eGeDrk/lUUjPpIvsDv1mYFipvmdVS3jEmiDkSD9eChjRE7V2lqa8pwZQ==",
+  "dgSpecHash": "gi2k5PLwXdsv8m+0xJtEMJ1RKctoY3u3F2q/Hn2IF6Vv72h142Cq8ci630OaPuwdzJPCmdvcAgB/k54tFE3FEA==",
   "success": true,
   "projectFilePath": "/home/phillip/source/c#/AmberElectricityAPI/AmberElectricityAPI.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/phillip/.nuget/packages/microsoft.aspnetcore.webutilities/8.0.8/microsoft.aspnetcore.webutilities.8.0.8.nupkg.sha512",
+    "/home/phillip/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "/home/phillip/.nuget/packages/microsoft.net.http.headers/8.0.8/microsoft.net.http.headers.8.0.8.nupkg.sha512",
+    "/home/phillip/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -79,13 +79,13 @@ public class AmberElectricity
 
         string body = string.Empty;
         string apiCall = "/sites/" + SiteId + "/prices/current";
-        Dictionary<string, string?>? paramSet = null;
-        if (nextIntervals != 0 || previousIntervals != 0) apiCall += "?'";
+
+        if (nextIntervals != 0 || previousIntervals != 0) apiCall += "?";
         if (nextIntervals != 0) apiCall += "next=" + nextIntervals;
         if (previousIntervals != 0)
         {
             if (nextIntervals != 0) apiCall += "&";
-            apiCall += "next=" + previousIntervals;
+            apiCall += "previous=" + previousIntervals;
         }
         
         responseData = Network.ProcessRequest(url, apiCall, true, _token);
@@ -93,6 +93,41 @@ public class AmberElectricity
         if (responseData.statusCode != HttpStatusCode.OK) return null;
         
         IntervalRecord[]? recs = JsonSerializer.Deserialize<IntervalRecord[]>(responseData.responseBody);
+
+        return recs;
+    }
+    
+    // Renewables
+    public RenewablesRecord[]? GetRenewables(RenewablesStateEnum state, uint nextIntervals, 
+                                             uint previousIntervals, int resolution = 30)
+    {
+        (HttpStatusCode statusCode, string responseBody) responseData;
+
+        string body = string.Empty;
+        string stateString = state switch
+        {
+            RenewablesStateEnum.Unknown => throw new NotImplementedException("Unknown renewable state"),
+            RenewablesStateEnum.NewSouthWales => "nsw",
+            RenewablesStateEnum.Queensland => "qld",
+            RenewablesStateEnum.Victoria => "vic",
+            RenewablesStateEnum.SouthAustralia => "sa",
+            _ => throw new Exception("Invalid renewables state enum value")
+        };
+        string apiCall = "/state/" + stateString + "/renewables/current";
+        
+        if (nextIntervals != 0 || previousIntervals != 0) apiCall += "?";
+        if (nextIntervals != 0) apiCall += "next=" + nextIntervals;
+        if (previousIntervals != 0)
+        {
+            if (nextIntervals != 0) apiCall += "&";
+            apiCall += "previous=" + previousIntervals;
+        }
+        
+        responseData = Network.ProcessRequest(url, apiCall, true, _token);
+        
+        if (responseData.statusCode != HttpStatusCode.OK) return null;
+        
+        RenewablesRecord[]? recs = JsonSerializer.Deserialize<RenewablesRecord[]?>(responseData.responseBody);
 
         return recs;
     }

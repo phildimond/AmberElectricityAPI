@@ -1,3 +1,12 @@
+//+-------------------------------------------------------------------------------------
+// 
+// Amber Electricity API, (c) Phillip Dimond, 2024
+//
+// See included licence document.
+// 
+//+-------------------------------------------------------------------------------------
+
+
 using System.Net;
 using Microsoft.AspNetCore.WebUtilities;
 

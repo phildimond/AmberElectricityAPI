@@ -1,4 +1,12 @@
 using System.Text.Json.Serialization;
+//+-------------------------------------------------------------------------------------
+// 
+// Amber Electricity API, (c) Phillip Dimond, 2024
+//
+// See included licence document.
+// 
+//+-------------------------------------------------------------------------------------
+
 
 namespace AmberElectricityAPI.Models;
 

@@ -1,0 +1,13 @@
+/home/phillip/source/c#/AmberElectricityAPI/bin/Release/net8.0/AmberElectricityAPI.deps.json
+/home/phillip/source/c#/AmberElectricityAPI/bin/Release/net8.0/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/bin/Release/net8.0/AmberElectricityAPI.pdb
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.csproj.AssemblyReference.cache
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.GeneratedMSBuildEditorConfig.editorconfig
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.AssemblyInfoInputs.cache
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.AssemblyInfo.cs
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.csproj.CoreCompileInputs.cache
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.sourcelink.json
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/refint/AmberElectricityAPI.dll
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/AmberElectricityAPI.pdb
+/home/phillip/source/c#/AmberElectricityAPI/obj/Release/net8.0/ref/AmberElectricityAPI.dll

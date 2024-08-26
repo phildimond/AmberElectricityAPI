@@ -156,7 +156,6 @@ public class AmberElectricity
             apiCall += "previous=" + previousIntervals;
         }
         
-        Console.WriteLine($"API Call is {apiCall}");
         responseData = Network.ProcessRequest(_url, apiCall, true, _token);
         
         if (responseData.statusCode != HttpStatusCode.OK) return (null, responseData.statusCode.ToString());

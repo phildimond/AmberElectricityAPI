@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AmberElectricityAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a95c5c10988c1d8f854863f1a1d567bccd60b7c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9e70cec22321fdffb407c415568e7609b7f5b08")]
 [assembly: System.Reflection.AssemblyProductAttribute("AmberElectricityAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AmberElectricityAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

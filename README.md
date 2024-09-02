@@ -32,3 +32,8 @@ The <code>AmberSiteId</code> value is obtained from the <code>GetSites()</code> 
 SiteID and then instantiate a new instance using the site ID for further calls.
 
 Both synchronous and asynchronous versions of the calls are included.
+
+> Changes
+
+2nd Sept 2024: Non-breaking: added Amber API rate limit processing on call responses. Most recent rate values are available as properties of the AmberElectricityAPI class. They will be null if they have never been populated.
+ 

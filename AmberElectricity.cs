@@ -7,6 +7,7 @@
 //+-------------------------------------------------------------------------------------
 
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using AmberElectricityAPI.Models;
 
@@ -16,8 +17,38 @@ public class AmberElectricity
 {
     private string _token;
     private string _url = "https://api.amber.com.au/v1";
-
-    public string SiteId { get; set; }
+    private int? _rateApiCallLimitPerWindow;
+    private int? _rateApiCallsRemainingThisWindow;
+    private int? _rateSecsToWindowReset;
+    private int? _rateMaxCallsPerWindow;
+    private int? _rateSecsPerWindow;
+    
+    /// <summary>
+    /// Maximum calls allowed in this rate window
+    /// </summary>
+    public int? RateApiCallLimitPerWindow { get => _rateApiCallLimitPerWindow; }
+    
+    /// <summary>
+    /// Remaining calls allowed in this rate window
+    /// </summary>
+    public int? RateApiCallsRemainingThisWindow { get => _rateApiCallsRemainingThisWindow; }
+    
+    /// <summary>
+    /// Seconds remaining until this rate window resets
+    /// </summary>
+    public int? RateSecsToWindowReset { get => _rateSecsToWindowReset; }
+    
+    /// <summary>
+    /// Maximum API calls per rate window
+    /// </summary>
+    public int? RateMaxCallsPerWindow { get => _rateMaxCallsPerWindow; }
+    
+    /// <summary>
+    /// Rate window length in seconds
+    /// </summary>
+    public int? RateSecsPerWindow { get => _rateSecsPerWindow; }
+    
+    public string SiteId { get; }
 
     // Constructor
     public AmberElectricity(string token, string siteId )
@@ -32,13 +63,12 @@ public class AmberElectricity
     /// <returns>null on failure, an array of sites on success</returns>
     public Site[]? GetSites()
     {
-        (HttpStatusCode statusCode, string responseBody) responseData;
+        (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) responseData;
 
         responseData = Network.ProcessRequest(_url, "/sites", true, _token);
-        
         if (responseData.statusCode != HttpStatusCode.OK) return null;
-        
         Site[]? sites = JsonSerializer.Deserialize<Site[]>(responseData.responseBody);
+        ProcessRateHeaders(responseData.headers);
 
         return sites;
     }
@@ -63,17 +93,17 @@ public class AmberElectricity
     /// usage records will be null if the call fails.</returns>
     public (UsageRecord[]? recs, string httpResponseCode) GetSiteUsage(DateTime startDate, DateTime endDate, int resolution = 30)
     {
-        (HttpStatusCode statusCode, string responseBody) responseData;
+        (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) responseData;
 
         string apiCall = "/sites/" + SiteId + "/usage" +
                          "?startDate=" + startDate.ToString("yyyy-MM-dd") +
                          "&endDate=" + startDate.ToString("yyyy-MM-dd") +
                          "&resolution=" + resolution; 
+
         responseData = Network.ProcessRequest(_url, apiCall, true, _token);
-        
         if (responseData.statusCode != HttpStatusCode.OK) return (null, responseData.statusCode.ToString());
-        
         UsageRecord[]? recs = JsonSerializer.Deserialize<UsageRecord[]>(responseData.responseBody);
+        ProcessRateHeaders(responseData.headers);
 
         return (recs, responseData.statusCode.ToString());
     }
@@ -103,17 +133,17 @@ public class AmberElectricity
     /// <returns>An array of price records and the http status code on success. On failure the records will be null.</returns>
     public (IntervalRecord[]? recs, string httpStatusCode) GetSitePrices(DateTime startDate, DateTime endDate, int resolution = 30)
     {
-        (HttpStatusCode statusCode, string responseBody) responseData;
+        (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) responseData;
 
         string apiCall = "/sites/" + SiteId + "/prices" +
                          "?startDate=" + startDate.ToString("yyyy-MM-dd") +
                          "&endDate=" + startDate.ToString("yyyy-MM-dd") +
-                         "&resolution=" + resolution; 
+                         "&resolution=" + resolution;
+        
         responseData = Network.ProcessRequest(_url, apiCall, true, _token);
-        
         if (responseData.statusCode != HttpStatusCode.OK) return (null, responseData.statusCode.ToString());
-        
         IntervalRecord[]? recs = JsonSerializer.Deserialize<IntervalRecord[]>(responseData.responseBody);
+        ProcessRateHeaders(responseData.headers);
 
         return (recs, responseData.statusCode.ToString());
     }
@@ -144,7 +174,7 @@ public class AmberElectricity
     public (IntervalRecord[]? records, string httpStatusCode) 
         GetCurrentPrices(uint nextIntervals, uint previousIntervals, int resolution = 30)
     {
-        (HttpStatusCode statusCode, string responseBody) responseData;
+        (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) responseData;
 
         string apiCall = "/sites/" + SiteId + "/prices/current";
 
@@ -157,10 +187,9 @@ public class AmberElectricity
         }
         
         responseData = Network.ProcessRequest(_url, apiCall, true, _token);
-        
         if (responseData.statusCode != HttpStatusCode.OK) return (null, responseData.statusCode.ToString());
-        
         IntervalRecord[]? recs = JsonSerializer.Deserialize<IntervalRecord[]>(responseData.responseBody);
+        ProcessRateHeaders(responseData.headers);
 
         return (recs, responseData.statusCode.ToString());
     }
@@ -195,7 +224,7 @@ public class AmberElectricity
     public (RenewablesRecord[]? records, string httpStatusCode) GetRenewables(RenewablesStateEnum state, uint nextIntervals, 
                                              uint previousIntervals, int resolution = 30)
     {
-        (HttpStatusCode statusCode, string responseBody) responseData;
+        (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) responseData;
 
         string stateString = state switch
         {
@@ -217,10 +246,9 @@ public class AmberElectricity
         }
         
         responseData = Network.ProcessRequest(_url, apiCall, true, _token);
-        
         if (responseData.statusCode != HttpStatusCode.OK) return (null, responseData.statusCode.ToString());
-        
         RenewablesRecord[]? recs = JsonSerializer.Deserialize<RenewablesRecord[]?>(responseData.responseBody);
+        ProcessRateHeaders(responseData.headers);
 
         return (recs, responseData.statusCode.ToString());
     }
@@ -241,5 +269,23 @@ public class AmberElectricity
             GetRenewables(state, nextIntervals, previousIntervals, resolution)
             );
         return result;
+    }
+
+    private void ProcessRateHeaders(HttpResponseHeaders headers)
+    {
+        foreach (KeyValuePair<string, IEnumerable<string>> header in headers)
+        {
+            switch (header.Key)
+            {
+                case "RateLimit-Remaining": _rateApiCallsRemainingThisWindow = Convert.ToInt32(header.Value.Single()); break;
+                case "RateLimit-Limit": _rateApiCallLimitPerWindow = Convert.ToInt32(header.Value.Single()); break;
+                case "RateLimit-Reset": _rateSecsToWindowReset = Convert.ToInt32(header.Value.Single()); break;
+                case "RateLimit-Policy": // RateLimit-Policy: 50;w=300
+                    var s = header.Value.Single();
+                    _rateMaxCallsPerWindow = Convert.ToInt32(s.Split(';')[0]); 
+                    _rateSecsPerWindow = Convert.ToInt32(s.Split(';')[1].Split('=')[1]);
+                    break;
+            }
+        }
     }
 }

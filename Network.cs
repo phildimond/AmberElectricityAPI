@@ -8,6 +8,7 @@
 
 
 using System.Net;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace AmberElectricityAPI;
@@ -18,7 +19,7 @@ public class Network
     // Perform a GET API transaction
     // ====================================================
 
-    public static (HttpStatusCode statusCode, string responseBody) 
+    public static (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) 
         ProcessRequest(string baseUrl, string api, bool tokenNeeded, string token = "")
     {
         
@@ -44,7 +45,7 @@ public class Network
         {
             var result = response.Content.ReadAsStream();
             StreamReader reader = new StreamReader(result);
-            return (response.StatusCode, reader.ReadToEnd());
+            return (response.StatusCode, reader.ReadToEnd(), response.Headers);
         } 
     }
 
@@ -52,7 +53,7 @@ public class Network
     // Perform a POST API transaction
     // ====================================================
 
-    public static (HttpStatusCode statusCode, string responseBody, IEnumerable<string> cookies) 
+    public static (HttpStatusCode statusCode, string responseBody, HttpResponseHeaders headers) 
         PostData(string baseUrl, string api, string body, bool tokenNeeded, string token = "")
     {
         var clientHandler = new HttpClientHandler
@@ -82,7 +83,7 @@ public class Network
            
             var result = response.Content.ReadAsStream();
             StreamReader reader = new StreamReader(result);
-            return (response.StatusCode, reader.ReadToEnd(), cookies); 
+            return (response.StatusCode, reader.ReadToEnd(), response.Headers); 
         }
     }
 }

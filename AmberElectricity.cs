@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using AmberElectricityAPI.Models;
+using EnergySuper.EventArgsAndHandlers;
 
 namespace AmberElectricityAPI;
 
@@ -22,6 +23,8 @@ public class AmberElectricity
     private int? _rateSecsToWindowReset;
     private int? _rateMaxCallsPerWindow;
     private int? _rateSecsPerWindow;
+
+    public LowAmberApiCallsRemainingEventHandler? LowAmberApiCallsRemainingEvent;
     
     /// <summary>
     /// Maximum calls allowed in this rate window
@@ -47,8 +50,18 @@ public class AmberElectricity
     /// Rate window length in seconds
     /// </summary>
     public int? RateSecsPerWindow { get => _rateSecsPerWindow; }
-    
+
+    /// <summary>
+    /// Amber Site ID
+    /// </summary>
     public string SiteId { get; }
+
+    /// <summary>
+    /// Sets a threshold that, when the remaining API call allowance in this
+    /// time window is reached, a low API Calls Remmaining event will be generated.
+    /// Defaults to 10
+    /// </summary>
+    public int LowApiRemainingAlertThreshold { get; set; } = 10;
 
     // Constructor
     public AmberElectricity(string token, string siteId )
@@ -271,6 +284,10 @@ public class AmberElectricity
         return result;
     }
 
+    /// <summary>
+    /// Process the API rate ,limitation information in the returned headers
+    /// </summary>
+    /// <param name="headers">Headers to process</param>
     private void ProcessRateHeaders(HttpResponseHeaders headers)
     {
         foreach (KeyValuePair<string, IEnumerable<string>> header in headers)
@@ -286,6 +303,14 @@ public class AmberElectricity
                     _rateSecsPerWindow = Convert.ToInt32(s.Split(';')[1].Split('=')[1]);
                     break;
             }
+        }
+
+        // Raise a threshold low event
+        if (_rateApiCallsRemainingThisWindow < LowApiRemainingAlertThreshold)
+        {
+            if (LowAmberApiCallsRemainingEvent != null && _rateApiCallsRemainingThisWindow != null && _rateSecsToWindowReset != null) 
+                LowAmberApiCallsRemainingEvent.Invoke(this, 
+                    new LowAmberApiCallsRemainingEventArgs((int)_rateApiCallsRemainingThisWindow, (int)_rateSecsToWindowReset));
         }
     }
 }

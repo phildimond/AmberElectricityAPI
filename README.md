@@ -36,4 +36,6 @@ Both synchronous and asynchronous versions of the calls are included.
 > Changes
 
 2nd Sept 2024: Non-breaking: added Amber API rate limit processing on call responses. Most recent rate values are available as properties of the AmberElectricityAPI class. They will be null if they have never been populated.
+
+7th Sept 2024: Non-breaking: added a low API calls remaining event and a settable threshold for it.
  

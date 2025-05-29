@@ -11,7 +11,6 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("AmberElectricityAPI")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd6e693d10d0bebe9420a30a1042672d07ae727d")]
 [assembly: System.Reflection.AssemblyProductAttribute("AmberElectricityAPI")]

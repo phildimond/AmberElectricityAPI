@@ -313,4 +313,26 @@ public class AmberElectricity
                     new LowAmberApiCallsRemainingEventArgs((int)_rateApiCallsRemainingThisWindow, (int)_rateSecsToWindowReset));
         }
     }
+    
+    /// <summary>
+    /// Get Rate Information Asynchronously
+    /// </summary>
+    /// <returns>Class containing the rate infortmation from the most recent API call. The result will be
+    /// null in case of a failure.</returns>
+    public ApiRateInformation? GetApiRateInformation()
+    {
+        ApiRateInformation? info = new ApiRateInformation();
+        
+        if (_rateApiCallsRemainingThisWindow != null)
+        {
+            info.ApiCallsRemaining = (int)_rateApiCallsRemainingThisWindow;
+        }
+        if (_rateSecsToWindowReset != null)
+        {
+            info.WindowSecsRemaining = (int)_rateSecsToWindowReset;
+        }
+
+        return info;
+    }
+    
 }

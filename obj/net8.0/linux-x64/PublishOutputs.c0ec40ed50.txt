@@ -1,0 +1,7 @@
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/AmberElectricityAPI.dll
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/AmberElectricityAPI.deps.json
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/AmberElectricityAPI.pdb
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/Microsoft.AspNetCore.WebUtilities.dll
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/Microsoft.Extensions.Primitives.dll
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/Microsoft.Net.Http.Headers.dll
+/home/phillip/source/C#/AmberElectricityAPI/bin/net8.0/linux-x64/publish/System.IO.Pipelines.dll

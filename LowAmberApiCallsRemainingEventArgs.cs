@@ -12,10 +12,10 @@ public class LowAmberApiCallsRemainingEventArgs(int apiCallsRemaining, int windo
     /// <summary>
     /// How many API calls remain in this time window
     /// </summary>
-    public int ApiCallsRemaining { get; } = apiCallsRemaining;
+    public int? ApiCallsRemaining { get; } = apiCallsRemaining;
     
     /// <summary>
     /// How many seconds remain in this time window
     /// </summary>
-    public int WindowSecsRemaining { get; } = windowSecsRemaining;
+    public int? WindowSecsRemaining { get; } = windowSecsRemaining;
 }

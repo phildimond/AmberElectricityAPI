@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/phillip/source/c#/AmberElectricityAPI/AmberElectricityAPI.csproj": {}
+    "/home/phillip/source/C#/AmberElectricityAPI/AmberElectricityAPI.csproj": {}
   },
   "projects": {
-    "/home/phillip/source/c#/AmberElectricityAPI/AmberElectricityAPI.csproj": {
+    "/home/phillip/source/C#/AmberElectricityAPI/AmberElectricityAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/phillip/source/c#/AmberElectricityAPI/AmberElectricityAPI.csproj",
+        "projectUniqueName": "/home/phillip/source/C#/AmberElectricityAPI/AmberElectricityAPI.csproj",
         "projectName": "AmberElectricityAPI",
-        "projectPath": "/home/phillip/source/c#/AmberElectricityAPI/AmberElectricityAPI.csproj",
+        "projectPath": "/home/phillip/source/C#/AmberElectricityAPI/AmberElectricityAPI.csproj",
         "packagesPath": "/home/phillip/.nuget/packages/",
-        "outputPath": "/home/phillip/source/c#/AmberElectricityAPI/obj/",
+        "outputPath": "/home/phillip/source/C#/AmberElectricityAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/phillip/.nuget/NuGet/NuGet.Config"
@@ -38,7 +38,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -65,7 +66,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.106/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
         }
       }
     }
